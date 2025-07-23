@@ -16,30 +16,32 @@
 <meta name="theme-color" content="#000000"/>
 
 <style>
-  /* 1) Forcer tout masthead/navbar à fond noir */
-  header#masthead,
-  header#masthead .navbar,
-  .navbar-light.bg-light {
-    background-color: #000 !important;
-    border-color:     #000 !important;
-  }
 
-  /* 2) Forcer tous les liens, marque et toggler en blanc */
-  .navbar-light.bg-light .navbar-brand,
-  .navbar-light.bg-light .nav-link {
-    color: #fff !important;
-  }
-  /* Toggle icon (les 3 barres) en blanc */
-  .navbar-light .navbar-toggler-icon {
-    filter: invert(1) !important;
-  }
+/* 1) Fond noir sur le conteneur masthead et son inner‑wrap */
+.masthead,
+.masthead__inner-wrap {
+  background-color: #000 !important;
+}
 
-  /* 3) Masquer tout bouton de bascule de thème éventuel */
-  .theme-toggle,
-  .theme-switch,
-  .toggle-theme {
-    display: none !important;
-  }
+/* 2) Le menu wrap en transparent (pour être sûr) */
+.masthead__menu {
+  background-color: transparent !important;
+}
+
+/* 3) Fond noir sur la nav elle‑même */
+#site-nav.greedy-nav {
+  background-color: #000 !important;
+}
+
+/* 4) Liens de navigation en blanc */
+#site-nav.greedy-nav a {
+  color: #fff !important;
+}
+
+/* 5) Si tu as un bouton de bascule résiduel */
+.theme-toggle,
+.theme-switch,
+.toggle-theme {
+  display: none !important;
+}
 </style>
-
-<!-- end custom head snippets -->
