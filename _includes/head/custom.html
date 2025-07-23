@@ -5,13 +5,41 @@
 <!-- Support for Academicons -->
 <link rel="stylesheet" href="{{ base_path }}/assets/css/academicons.css"/>
 
-<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<!-- favicons, manifest… -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ base_path }}/images/apple-touch-icon-180x180.png"/>
 <link rel="icon" type="image/svg+xml" href="{{ base_path }}/images/favicon.svg"/>
 <link rel="icon" type="image/png" href="{{ base_path }}/images/favicon-32x32.png" sizes="32x32"/>
 <link rel="icon" type="image/png" href="{{ base_path }}/images/favicon-192x192.png" sizes="192x192"/>
 <link rel="manifest" href="{{ base_path }}/images/manifest.json"/>
 <link rel="icon" href="/images/favicon.ico"/>
-<meta name="theme-color" content="#ffffff"/>
+<!-- on passe le theme-color à noir -->
+<meta name="theme-color" content="#000000"/>
+
+<style>
+  /* 1) Forcer tout masthead/navbar à fond noir */
+  header#masthead,
+  header#masthead .navbar,
+  .navbar-light.bg-light {
+    background-color: #000 !important;
+    border-color:     #000 !important;
+  }
+
+  /* 2) Forcer tous les liens, marque et toggler en blanc */
+  .navbar-light.bg-light .navbar-brand,
+  .navbar-light.bg-light .nav-link {
+    color: #fff !important;
+  }
+  /* Toggle icon (les 3 barres) en blanc */
+  .navbar-light .navbar-toggler-icon {
+    filter: invert(1) !important;
+  }
+
+  /* 3) Masquer tout bouton de bascule de thème éventuel */
+  .theme-toggle,
+  .theme-switch,
+  .toggle-theme {
+    display: none !important;
+  }
+</style>
 
 <!-- end custom head snippets -->
