@@ -83,26 +83,6 @@ layout: compress
       );
       scene.add(earth);
 
-      // shrink globe on mobile so it always fits
-      function adjustGlobe() {
-        const mobile = window.innerWidth < 600;      // tweak your breakpoint
-        // only adjust scale; keep camera where it is
-        const s = mobile ? 0.6 : 1.0;                 // 60% size on phones
-        earth.scale.set(s, s, s);
-      }
-
-      // call once on load
-      adjustGlobe();
-
-      // and on every resize
-      window.addEventListener('resize', () => {
-        adjustGlobe();
-        // also update camera & renderer as usual
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
 
 
 
