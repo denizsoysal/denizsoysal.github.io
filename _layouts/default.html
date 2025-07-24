@@ -85,22 +85,16 @@ layout: compress
 
       // after you set up camera.position.z = 2.5, earth & clouds…
       function adjustGlobe() {
-      const mobile = window.innerWidth < 600;   // breakpoint in px
-      if (mobile) {
-        // push camera back
-        camera.position.set(0, 0, 4.0);
-        // optionally shrink earth & clouds
-        earth.scale.set(0.8, 0.8, 0.8);
-      } else {
-        camera.position.set(0, 0, 2.5);
-        earth.scale.set(1, 1, 1);
-      }
+      const mobile = window.innerWidth < 600;  // your breakpoint
+      camera.position.z = mobile ? 4.0 : 2.5;  // push back on mobile
+      const s = mobile ? 0.8 : 1.0;             // shrink a bit on mobile
+      earth.scale.set(s, s, s);
     }
 
-    // call once on load
+    // call once at startup
     adjustGlobe();
 
-    // and on resize (in your existing resize handler)
+    // and in your resize handler **before** setSize()
     window.addEventListener('resize', () => {
       adjustGlobe();
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -167,7 +161,11 @@ layout: compress
         const y = Math.random() * h * 0.6;
         meteors.push({ x: -50, y, vx: 4 + Math.random() * 3, vy: 2 + Math.random() * 1.5, life: 0 });
       }
-      setInterval(spawnMeteor, 2500);
+      setInterval(() => {
+      spawnMeteor();
+      spawnMeteor();
+      spawnMeteor();
+    }, 2000);
 
       function draw() {
         ctx.clearRect(0, 0, w, h);
