@@ -118,17 +118,17 @@ layout: compress
       loader.crossOrigin = 'anonymous';
 
       // Replace your earth mesh creation with this:
-      const earth = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 75, 75),
-        new THREE.MeshPhongMaterial({
-          map:       loader.load('https://unpkg.com/three-globe@2.31.1/example/img/earth-blue-marble.jpg'),
-          bumpMap:   loader.load('https://unpkg.com/three-globe@2.31.1/example/img/earth-topology.png'),
-          bumpScale: 0.02,
-          specular:  0x333333,
-          shininess: 5
-        })
-      );
-      scene.add(earth);
+        const earth = new THREE.Mesh(
+          new THREE.SphereGeometry(1, 75, 75),
+          new THREE.MeshPhongMaterial({
+            map: loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-blue-marble.jpg'),
+            bumpMap: loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-topology.png'),
+            bumpScale: 0.02,
+            specular: 0x333333,
+            shininess: 5
+          })
+        );
+        scene.add(earth);
 
       // 5) Lighting
       scene.add(new THREE.AmbientLight(0x888888, 0.6));
