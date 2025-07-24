@@ -12,3 +12,26 @@
     mermaid.initialize({startOnLoad:true, theme:'default'});
     await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
+
+
+
+<style>
+    /* Shrink the globe container on screens under 600px */
+    @media (max-width: 600px) {
+    #globe-container {
+        /* reduce to 70% of full‐screen */
+        width: 70vw !important;
+        height: 70vh !important;
+        /* center it in the viewport */
+        top: 15vh !important;
+        left: 15vw !important;
+    }
+    /* make sure the WebGL canvas inside scales to fill */
+    #globe-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    }
+
+
+</style>
