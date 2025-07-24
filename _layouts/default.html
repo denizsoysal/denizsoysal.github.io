@@ -118,7 +118,7 @@ layout: compress
       loader.crossOrigin = 'anonymous';
 
       const earth = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 256, 256),
+        new THREE.SphereGeometry(1, 75, 75),
         new THREE.MeshPhongMaterial({
           map:       loader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
           bumpMap:   loader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
