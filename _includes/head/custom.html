@@ -15,33 +15,28 @@
 <!-- on passe le theme-color à noir -->
 <meta name="theme-color" content="#000000"/>
 
+
 <style>
 
-/* 1) Fond noir sur le conteneur masthead et son inner‑wrap */
-.masthead,
-.masthead__inner-wrap {
-  background-color: #000 !important;
-}
+    /* Make the dropdown list black with white text */
+    nav.greedy-nav .visible-links,
+    nav.greedy-nav .visible-links li,
+    nav.greedy-nav .hidden-links,
+    nav.greedy-nav .hidden-links li {
+    background-color: #000 !important;
+    }
 
-/* 2) Le menu wrap en transparent (pour être sûr) */
-.masthead__menu {
-  background-color: transparent !important;
-}
+    /* Force the link color to white */
+    nav.greedy-nav .visible-links a,
+    nav.greedy-nav .hidden-links a {
+    color: #fff !important;
+    }
 
-/* 3) Fond noir sur la nav elle‑même */
-#site-nav.greedy-nav {
-  background-color: #000 !important;
-}
+    /* Optional: remove that grey hover */
+    nav.greedy-nav .visible-links a:hover,
+    nav.greedy-nav .hidden-links a:hover {
+    background-color: #222 !important;
+    }
 
-/* 4) Liens de navigation en blanc */
-#site-nav.greedy-nav a {
-  color: #fff !important;
-}
 
-/* 5) Si tu as un bouton de bascule résiduel */
-.theme-toggle,
-.theme-switch,
-.toggle-theme {
-  display: none !important;
-}
 </style>

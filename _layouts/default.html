@@ -30,22 +30,7 @@ layout: compress
       }
       canvas { display: block; }
 
-        /* Force le header (nav) en noir */
-      .site-header {
-        background-color: #000 !important;
-      }
-
-      /* Si le thème utilise un autre sélecteur, couvre aussi : */
-      header, nav {
-        background-color: #000 !important;
-      }
-
-      /* Assure-toi que tes liens restent lisibles en blanc */
-      .site-header a,
-      header a,
-      nav a {
-        color: #fff !important;
-      }
+    
     </style>
   </head>
 
@@ -97,6 +82,32 @@ layout: compress
         })
       );
       scene.add(earth);
+
+      // after you set up camera.position.z = 2.5, earth & clouds…
+      function adjustGlobe() {
+      const mobile = window.innerWidth < 600;   // breakpoint in px
+      if (mobile) {
+        // push camera back
+        camera.position.set(0, 0, 4.0);
+        // optionally shrink earth & clouds
+        earth.scale.set(0.8, 0.8, 0.8);
+      } else {
+        camera.position.set(0, 0, 2.5);
+        earth.scale.set(1, 1, 1);
+      }
+    }
+
+    // call once on load
+    adjustGlobe();
+
+    // and on resize (in your existing resize handler)
+    window.addEventListener('resize', () => {
+      adjustGlobe();
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
 
       /* Lumière */
