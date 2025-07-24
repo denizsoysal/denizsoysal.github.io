@@ -83,25 +83,27 @@ layout: compress
       );
       scene.add(earth);
 
-      // after you set up camera.position.z = 2.5, earth & clouds…
+      // shrink globe on mobile so it always fits
       function adjustGlobe() {
-      const mobile = window.innerWidth < 600;  // your breakpoint
-      camera.position.z = mobile ? 4.0 : 2.5;  // push back on mobile
-      const s = mobile ? 0.8 : 1.0;             // shrink a bit on mobile
-      earth.scale.set(s, s, s);
-    }
+        const mobile = window.innerWidth < 600;      // tweak your breakpoint
+        // only adjust scale; keep camera where it is
+        const s = mobile ? 0.6 : 1.0;                 // 60% size on phones
+        earth.scale.set(s, s, s);
+      }
 
-    // call once at startup
-    adjustGlobe();
-
-    // and in your resize handler **before** setSize()
-    window.addEventListener('resize', () => {
+      // call once on load
       adjustGlobe();
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+
+      // and on every resize
+      window.addEventListener('resize', () => {
+        adjustGlobe();
+        // also update camera & renderer as usual
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
 
 
       /* Lumière */
