@@ -68,8 +68,9 @@ layout: compress
     <!-- Globe Three.js (coloré + nuages) -->
     <script type="module" crossorigin>
       // CHANGE 1: Use cdnjs.cloudflare.com instead of unpkg
-      import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.module.min.js';
-      import { OrbitControls } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.module.min.js';
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
+      import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
+
 
       // 1) Grab the container
       const container = document.getElementById('globe-container');
