@@ -9,6 +9,9 @@ layout: compress
   <head>
     {% include head.html %}
     {% include head/custom.html %}
+    <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js" } }
+    </script>
 
     <style>
       html, body {
@@ -67,9 +70,9 @@ layout: compress
 
     <!-- Globe Three.js (coloré + nuages) -->
     <script type="module" crossorigin>
-      // CHANGE 1: Use cdnjs.cloudflare.com instead of unpkg
       import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
       import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
+
 
 
       // 1) Grab the container
@@ -110,6 +113,7 @@ layout: compress
         camera.updateProjectionMatrix();
       }
 
+
       // Call on load, and whenever the window resizes
       resizeGlobeHalfScreen();
       window.addEventListener('resize', resizeGlobeHalfScreen);
@@ -118,18 +122,18 @@ layout: compress
       const loader = new THREE.TextureLoader();
       loader.crossOrigin = 'anonymous';
 
-      // CHANGE 2: Use more reliable image URLs
-      const earth = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 75, 75),
-        new THREE.MeshPhongMaterial({
-          map: loader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'),
-          bumpMap: loader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg'),
-          bumpScale: 0.02,
-          specular: 0x333333,
-          shininess: 5
-        })
-      );
-      scene.add(earth);
+      // Replace your earth mesh creation with this:
+        const earth = new THREE.Mesh(
+          new THREE.SphereGeometry(1, 75, 75),
+          new THREE.MeshPhongMaterial({
+            map: loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-blue-marble.jpg'),
+            bumpMap: loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.31.1/example/img/earth-topology.png'),
+            bumpScale: 0.02,
+            specular: 0x333333,
+            shininess: 5
+          })
+        );
+        scene.add(earth);
 
       // 5) Lighting
       scene.add(new THREE.AmbientLight(0x888888, 0.6));
