@@ -107,9 +107,9 @@ layout: compress
 
       mets.push({
         x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 8,
-        vy: (Math.random() - 0.5) * 8,
+        y: Math.random() * h ,
+        vx: 4 + Math.random() * 3,
+        vy: 2 + Math.random() * 1.5,
         l: 0
       });
     }, 2000);
@@ -121,12 +121,7 @@ layout: compress
       for(let i=mets.length;i--;){
         const m=mets[i];m.x+=m.vx;m.y+=m.vy;m.l++;
         ctx.strokeStyle=`rgba(80,200,255,${1-m.l/60})`;ctx.lineWidth=2;
-        ctx.beginPath();ctx.moveTo(m.x,m.y);
-        const trail = 22;
-        ctx.lineTo(
-          m.x - (m.vx / len) * trail,
-          m.y - (m.vy / len) * trail
-        );
+        ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-10,m.y-5);ctx.stroke();
         if(m.x>w+50||m.y>h+50||m.l>60) mets.splice(i,1);
       }
       requestAnimationFrame(draw);
