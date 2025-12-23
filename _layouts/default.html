@@ -116,11 +116,11 @@ layout: compress
 
     !(function draw(){
       ctx.fillStyle='#121212';ctx.fillRect(0,0,w,h);
-      ctx.fillStyle='#rgb(255,255,255)';stars.forEach(s=>{ctx.globalAlpha=s.a;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill()});
+      ctx.fillStyle='rgb(80,200,255)';stars.forEach(s=>{ctx.globalAlpha=s.a;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill()});
       ctx.globalAlpha=1;
       for(let i=mets.length;i--;){
         const m=mets[i];m.x+=m.vx;m.y+=m.vy;m.l++;
-        ctx.strokeStyle=`rgb(255,255,255,${1-m.l/60})`;ctx.lineWidth=2;
+        ctx.strokeStyle=`rgb(80,200,255,${1-m.l/60})`;ctx.lineWidth=2;
         ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-10,m.y-5);ctx.stroke();
         if(m.x>w+50||m.y>h+50||m.l>60) mets.splice(i,1);
       }
