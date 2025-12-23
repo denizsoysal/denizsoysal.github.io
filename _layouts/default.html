@@ -22,15 +22,14 @@ layout: compress
     #globe-container{position:fixed;top:0;left:0;z-index:-1;pointer-events:none;overflow:hidden}
     .page,.page__content,.masthead,.initial-content{background:transparent!important}
     /* FIX 1: Keep footer at bottom */
-    .page__footer{background:transparent!important;position:fixed;bottom:0;left:0;width:100%;z-index:1}
+    .page__footer{background:transparent!important;position:relative;z-index:1}
     canvas{display:block}
   </style>
 </head>
 
 <body>
-  <canvas id="starfield"></canvas>
-  <div id="globe-container"></div>
-
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div id="globe-container" aria-hidden="true"></div>
   {% include masthead.html %}
   {{ content }}
   {% include footer/custom.html %}
@@ -49,7 +48,7 @@ layout: compress
     camera.position.z = 2.5;
 
     const renderer = new THREE.WebGLRenderer({alpha:true,antialias:true});
-    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     function resizeGlobe(){
@@ -67,7 +66,7 @@ layout: compress
     /* FIX 2: Higher-resolution Earth */
     const loader = new THREE.TextureLoader();
     const earth = new THREE.Mesh(
-      new THREE.SphereGeometry(1,1024,1024), /* ↑ more segments */
+      new THREE.SphereGeometry(1,256,256), /* ↑ more segments */
       new THREE.MeshPhongMaterial({
         map      : loader.load(IMG + 'earth-blue-marble.jpg'),
         bumpMap  : loader.load(IMG + 'earth-topology.png'),
@@ -90,26 +89,59 @@ layout: compress
 
     (function animate(){
       requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene,camera);
+      if (!document.hidden) {
+        controls.update();
+        renderer.render(scene,camera);
+      }
     })();
   </script>
 
-  <script>
+ <script>
     const c=document.getElementById('starfield'),ctx=c.getContext('2d');
     let w,h; const rs=()=>{w=c.width=innerWidth;h=c.height=innerHeight}; rs(); addEventListener('resize',rs);
 
     const stars=[...Array(350)].map(()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.2,a:Math.random()*0.5+0.5}));
-    const mets=[]; setInterval(()=>mets.push({x:-50,y:Math.random()*h*0.6,vx:4+Math.random()*3,vy:2+Math.random()*1.5,l:0}),2e3);
+    const mets=[]; 
+    
+    // FIX: Track time instead of using setInterval
+    let lastSpawnTime = 0; 
 
-    !(function draw(){
+    !(function draw(now){
+      // 1. Keep the dark background (Do not remove this!)
       ctx.fillStyle='#121212';ctx.fillRect(0,0,w,h);
-      ctx.fillStyle='#fff';stars.forEach(s=>{ctx.globalAlpha=s.a;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill()});
+      
+      // 2. Draw static stars
+      ctx.fillStyle='rgb(180,200,255)';stars.forEach(s=>{ctx.globalAlpha=s.a;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill()});
+      
+      // 3. New Safe Spawning Logic: Only runs when page is active
+      if (!now) now = 0; // Safety for first run
+      if (!document.hidden &&now - lastSpawnTime > 2000) {
+          mets.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 8,
+            vy: (Math.random() - 0.5) * 8,
+            l: 0
+          });
+          lastSpawnTime = now;
+      }
+
       ctx.globalAlpha=1;
       for(let i=mets.length;i--;){
         const m=mets[i];m.x+=m.vx;m.y+=m.vy;m.l++;
-        ctx.strokeStyle=`rgba(255,255,255,${1-m.l/60})`;ctx.lineWidth=2;
-        ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-10,m.y-5);ctx.stroke();
+        ctx.strokeStyle=`rgba(180,200,255,${1-m.l/60})`;ctx.lineWidth=2;
+        ctx.beginPath();ctx.moveTo(m.x,m.y);
+        const len = Math.hypot(m.vx, m.vy) || 1;
+        const trail = 22;
+
+        ctx.lineTo(
+          m.x - (m.vx / len) * trail,
+          m.y - (m.vy / len) * trail
+        );
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(180,200,255,0.9)'
+        ctx.stroke();
+        ctx.shadowBlur = 0;
         if(m.x>w+50||m.y>h+50||m.l>60) mets.splice(i,1);
       }
       requestAnimationFrame(draw);

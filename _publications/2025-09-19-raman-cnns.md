@@ -15,7 +15,19 @@ logourl: '/images/raman-cnn-toc.svg'
   🔗 <a href="https://doi.org/10.1021/acsearthspacechem.5c00136" target="_blank"><strong>Read the paper</strong></a>
 </p>
 
-![Graphical TOC](/images/raman-cnn-toc.svg)
+<div style="
+  background: #a1a1a1ff;
+  text-align: center;
+  max-width: 100%;
+  display: block;
+">
+  <img
+    src="/images/raman-cnn-toc.svg"
+    alt="Graphical TOC – Raman CNNs"
+    style="max-width: 1200px; width: 100%; height: auto;"
+  >
+</div>
+
 
 This paper provides an evaluation of convolutional neural networks (CNNs) for Raman spectroscopy. Key contributions:  
 
