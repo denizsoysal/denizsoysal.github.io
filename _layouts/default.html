@@ -104,12 +104,12 @@ layout: compress
     const mets=[]; 
     setInterval(() => {
       if (document.hidden) return;
-
+      // commmet
       mets.push({
         x: Math.random() * w,
         y: Math.random() * h ,
-        vx: 4 + Math.random() * 3,
-        vy: 2 + Math.random() * 1.5,
+        vx: 8 + Math.random() * 3,
+        vy: 4 + Math.random() * 1.5,
         l: 0
       });
     }, 2000);
@@ -120,8 +120,12 @@ layout: compress
       ctx.globalAlpha=1;
       for(let i=mets.length;i--;){
         const m=mets[i];m.x+=m.vx;m.y+=m.vy;m.l++;
-        ctx.strokeStyle=`rgb(80,200,255,${1-m.l/60})`;ctx.lineWidth=2;
-        ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-10,m.y-5);ctx.stroke();
+        ctx.strokeStyle=`rgb(200,200,255,${1-m.l/60})`;
+        ctx.lineWidth=4;
+        ctx.beginPath();
+        ctx.moveTo(m.x,m.y);
+        ctx.lineTo(m.x-10,m.y-5);
+        ctx.stroke();
         if(m.x>w+50||m.y>h+50||m.l>60) mets.splice(i,1);
       }
       requestAnimationFrame(draw);
